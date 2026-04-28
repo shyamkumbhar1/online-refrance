@@ -48,7 +48,6 @@ Controller → Job → Service → Model
 
 * Proper naming (camelCase variables, PascalCase classes)
 * One class per file
-* Use type hints (params + return)
 * Keep functions small and single responsibility
 * Proper indentation (4 spaces)
 * Use meaningful variable names
