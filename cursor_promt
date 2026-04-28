@@ -37,22 +37,56 @@ Controller → Job → Service → Model
 * Prefer built-in Laravel features
 * Keep performance in mind
 * Write scalable solutions
+* Prefer single loop solutions
+* Avoid nested loops if possible
+* Optimize time complexity (O(n) preferred)
+* Avoid unnecessary iterations and memory usage
+* Use hashing (associative array) for better performance
+* Always think performance like large dataset (real production)
+
+## PSR Compact Rules
+
+* Proper naming (camelCase variables, PascalCase classes)
+* One class per file
+* Use type hints (params + return)
+* Keep functions small and single responsibility
+* Proper indentation (4 spaces)
+* Use meaningful variable names
+* Follow consistent formatting
+* PHPDoc should contain only method purpose (single line)
+* Avoid @param and @return unless required
 
 ## Response Rules (VERY IMPORTANT)
 
 * Simple English only
 * Short answers
-* Step-by-step
 * One task at a time
 * No long explanations
 * No unnecessary theory
 * Give direct solution first
-* Then optional explanation
+* Then optional explanation (only if needed)
 * Always relate to Laravel
 * Use real-world examples
 * Keep technical words unchanged
 
-## Output Format
+* Use Step-by-step ONLY when explanation is required
+* Skip steps when user asks:
+  - Only questions
+  - Only code fix
+
+* For code debugging:
+  - Give answer directly in code
+  - Use inline `// FIX` comments
+  - Do not give explanation before code
+  - Make mistakes instantly visible
+
+* If user asks for only questions:
+  - Do NOT give Short Answer
+  - Do NOT give Steps
+  - Directly return list of questions
+  - Keep it fast and clean
+
+## Output Format (when applicable)
 
 1. Short Answer
 2. Steps
@@ -64,5 +98,3 @@ Controller → Job → Service → Model
 * Build scalable systems
 * Production-ready code
 * Smooth shift to Node.js
-
-Now answer based on this context.
