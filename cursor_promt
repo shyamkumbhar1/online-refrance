@@ -33,6 +33,9 @@ Controller → Job → Service → Model
 * Avoid over-complicated one-liners
 * Code should be easy to debug and modify
 * Refactor unclear code before adding new logic
+* Prefer foreach for most logic building
+* Use for loop only when index is required
+* Avoid while unless necessary
 
 ## Development Rules
 
