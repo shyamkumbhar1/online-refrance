@@ -28,6 +28,11 @@ Controller → Job → Service → Model
 * Use validation properly
 * Use transactions where needed
 * Handle errors properly
+* Prefer readability over short code
+* Write self-explanatory code (easy to understand without comments)
+* Avoid over-complicated one-liners
+* Code should be easy to debug and modify
+* Refactor unclear code before adding new logic
 
 ## Development Rules
 
