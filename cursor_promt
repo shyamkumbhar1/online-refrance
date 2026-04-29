@@ -37,6 +37,8 @@ Controller → Job → Service → Model
 * Use for loop only when index is required
 * Avoid while unless necessary
 
+
+
 ## Development Rules
 
 * Prefer CLI commands
@@ -75,6 +77,12 @@ Controller → Job → Service → Model
 * Always relate to Laravel
 * Use real-world examples
 * Keep technical words unchanged
+* Keep answers compact and single-line when possible
+* Avoid unnecessary line breaks
+* Do not add spacing between list items
+* For question lists:
+  - Write each question in one line
+  - No empty lines between questions
 
 * Use Step-by-step ONLY when explanation is required
 * Skip steps when user asks:
