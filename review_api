@@ -1,0 +1,15 @@
+Review this login API implementation.
+
+Check:
+- clean code
+- validation
+- security
+- JWT flow
+- error handling
+- test coverage
+- edge cases
+- Laravel best practices
+- response consistency
+- performance issues
+
+Also review success and failure test cases.
