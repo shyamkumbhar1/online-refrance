@@ -1,0 +1,24 @@
+Give short and focused responses only.
+
+Rules:
+
+* Response should be readable within 5 minutes
+* Do not give large explanations
+* Do not dump complete architecture at once
+* Give only current step
+* Wait before moving to next step
+* Use concise bullet points
+* Highlight only critical issues
+* Prefer actionable fixes
+* Avoid repetition
+* Keep examples minimal
+* Use clean review comments only
+* Prioritize important bugs first
+
+Format:
+
+1. Issue
+2. Why it matters
+3. Fix suggestion
+
+Do not explain unnecessary theory unless asked.
