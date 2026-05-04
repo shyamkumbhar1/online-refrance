@@ -1,1 +1,5 @@
 mysql -h database-1.c7mo0gm6q287.ap-south-2.rds.amazonaws.com -u admin -p'HCrkNXpATxpZf5J'
+
+ssh -i qr-scan.pem ubuntu@16.112.227.178
+ssh -i qr-scan.pem ubuntu@18.61.15.203
+ssh -v -i qr-scan.pem ubuntu@16.112.227.178
