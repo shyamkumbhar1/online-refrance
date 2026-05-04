@@ -7,7 +7,7 @@ Rules:
 * Do not dump complete architecture at once
 * Give only current step
 * Wait before moving to next step
-* Use concise bullet points
+* Use concise bullet points   
 * Highlight only critical issues
 * Prefer actionable fixes
 * Avoid repetition
