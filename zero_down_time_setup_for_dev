@@ -1,0 +1,429 @@
+# Laravel Production Deployment Roadmap
+
+## Phase 1 — Development Best Practices
+
+### 1. Use Feature Branches
+
+```bash
+git checkout -b feature/new-feature
+```
+
+Purpose:
+
+* Safe development
+* Protect stable branch
+* Easier rollback
+
+---
+
+### 2. Never Develop Directly on Live Server
+
+Correct Flow:
+
+```text
+Local/Staging → Testing → Production
+```
+
+---
+
+### 3. Backup `.env`
+
+```bash
+cp .env .env.backup
+```
+
+Add backup to `.gitignore`
+
+```bash
+echo ".env.backup" >> .gitignore
+```
+
+---
+
+### 4. Run Tests Before Deployment
+
+```bash
+php artisan test
+```
+
+Stop on first failure:
+
+```bash
+php artisan test --stop-on-failure
+```
+
+---
+
+# Phase 2 — Docker Setup
+
+## Why Docker?
+
+Benefits:
+
+* Same environment everywhere
+* Easy onboarding
+* Isolation
+* Easier scaling
+* Better deployment
+
+---
+
+## Required Files
+
+```text
+Dockerfile
+docker-compose.yml
+.dockerignore
+```
+
+---
+
+## Basic Dockerfile
+
+```dockerfile
+FROM php:8.5-fpm
+
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    curl \
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev
+
+RUN docker-php-ext-install \
+    pdo \
+    pdo_mysql \
+    mbstring \
+    zip \
+    exif \
+    pcntl
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www
+
+EXPOSE 9000
+```
+
+---
+
+## Start Containers
+
+```bash
+docker compose up -d
+```
+
+---
+
+# Phase 3 — Production Stack
+
+## Recommended Setup
+
+```text
+AWS EC2
++ Docker
++ Docker Compose
++ Nginx
++ Laravel
++ Redis
++ Horizon
++ MySQL/RDS
++ Supervisor
++ HTTPS SSL
++ GitHub Actions
+```
+
+---
+
+# Phase 4 — Queue & Horizon
+
+## Supervisor
+
+Purpose:
+
+* Keep queue workers running
+* Auto restart failed workers
+
+Check status:
+
+```bash
+sudo supervisorctl status
+```
+
+Restart:
+
+```bash
+sudo supervisorctl restart all
+```
+
+---
+
+## Horizon
+
+Run:
+
+```bash
+php artisan horizon
+```
+
+Useful Commands:
+
+```bash
+php artisan horizon:status
+php artisan horizon:terminate
+```
+
+---
+
+# Phase 5 — Zero Downtime Deployment
+
+## Correct Deployment Flow
+
+```text
+Developer
+   ↓
+Feature Branch
+   ↓
+Pull Request
+   ↓
+Testing
+   ↓
+Docker Build
+   ↓
+Staging Server
+   ↓
+Production Deployment
+   ↓
+Health Check
+   ↓
+Traffic Switch
+```
+
+---
+
+## Golden Rule
+
+```text
+Never update live running app directly.
+Always deploy a new version/container.
+```
+
+---
+
+# Phase 6 — Security
+
+## Required Security Setup
+
+### 1. HTTPS
+
+Use:
+
+* Domain
+* SSL Certificate
+* Let's Encrypt
+
+---
+
+### 2. Firewall
+
+Allow only:
+
+```text
+22  → SSH
+80  → HTTP
+443 → HTTPS
+```
+
+---
+
+### 3. Never Commit `.env`
+
+Ensure:
+
+```text
+.env
+.env.backup
+```
+
+are inside `.gitignore`
+
+---
+
+### 4. Use Strong Secrets
+
+Examples:
+
+* APP_KEY
+* DB_PASSWORD
+* JWT_SECRET
+
+---
+
+# Phase 7 — Backup Strategy
+
+## Database Backup
+
+Daily backup:
+
+```bash
+mysqldump -u root -p database_name > backup.sql
+```
+
+---
+
+## Storage Backup
+
+Backup:
+
+```text
+storage/
+.env
+uploads/
+```
+
+---
+
+## AWS Recommended
+
+Use:
+
+* S3 backups
+* EBS snapshots
+* RDS automated backup
+
+---
+
+# Phase 8 — Monitoring
+
+## Monitor
+
+* CPU
+* RAM
+* Disk
+* Queue failures
+* Horizon
+* Nginx logs
+* Laravel logs
+
+---
+
+## Useful Commands
+
+### Disk
+
+```bash
+df -h
+```
+
+### Memory
+
+```bash
+free -h
+```
+
+### Failed Services
+
+```bash
+sudo systemctl --failed
+```
+
+### Logs
+
+```bash
+sudo journalctl -p 3 -n 50 --no-pager
+```
+
+---
+
+# Phase 9 — Git Best Practices
+
+## Create Branch
+
+```bash
+git checkout -b feature/new-feature
+```
+
+---
+
+## Save Temporary Work
+
+```bash
+git stash -u
+```
+
+Restore:
+
+```bash
+git stash pop
+```
+
+---
+
+## Merge Feature Branch
+
+```bash
+git checkout development
+
+git merge feature/new-feature
+```
+
+---
+
+# Phase 10 — CI/CD
+
+## Recommended Flow
+
+```text
+GitHub Push
+   ↓
+GitHub Actions
+   ↓
+Run Tests
+   ↓
+Build Docker Image
+   ↓
+Deploy to Server
+   ↓
+Health Check
+```
+
+---
+
+# Phase 11 — Scaling
+
+## Start Small
+
+```text
+Docker Compose
+Single EC2
+```
+
+---
+
+## Later Upgrade To
+
+```text
+Kubernetes
+Load Balancer
+Auto Scaling
+Blue/Green Deployment
+```
+
+---
+
+# Final Industry Workflow
+
+```text
+Local Development
+→ Docker
+→ Testing
+→ GitHub
+→ CI/CD
+→ Staging
+→ Production
+→ Monitoring
+→ Backup
+→ Scaling
+```
