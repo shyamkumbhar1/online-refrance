@@ -1,0 +1,2 @@
+git worktree add -b redesign-v2 ../weblyticsindia-redesign-v2 master
+python3 -m http.server 8000
